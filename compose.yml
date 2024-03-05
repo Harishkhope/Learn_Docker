@@ -1,0 +1,35 @@
+services:
+  mongo:
+    image: mongo
+    volumes:
+      - mongo-db:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    ports:
+      - "3001:3001"
+    environment:
+      MONGODB_URI: "mongodb+srv://react_app:react_app@cluster0.gdfnmqs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    depends_on:
+      - mongo
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    working_dir: /usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  mongo-db:
