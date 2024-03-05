@@ -17,7 +17,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      MONGODB_URI: "mongodb+srv://react_app:react_app@cluster0.gdfnmqs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      MONGODB_URI: "your_mongo_URI"
     depends_on:
       - mongo
 
